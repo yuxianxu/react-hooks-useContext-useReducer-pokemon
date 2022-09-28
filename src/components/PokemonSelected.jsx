@@ -1,8 +1,12 @@
 import React from 'react';
 
 const PokemonSelected = ({ selected }) => {
+  if (selected === null) {
+    return null;
+  }
+
   return (
-    <div className='selected'>
+    <div className="selected">
       <h3>{selected.name.english}</h3>
       <div>
         {Object.keys(selected.base).map((baseKey) => (

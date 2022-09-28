@@ -14,18 +14,18 @@ function App() {
     setPokemon(data);
   };
 
-  console.log(search);
-
   useEffect(() => {
     getComments();
   }, []);
 
-  console.log(selected);
+  if (pokemon === null) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <>
       <h2>Pokemon list - React hooks</h2>
-      <PokemonFilter pokemon={pokemon} search={search} setSearch={setSearch} />
+      <PokemonFilter pokemon={pokemon} search={search} setSelected={setSelected} setSearch={setSearch} />
       <PokemonList
         pokemon={pokemon}
         search={search}
