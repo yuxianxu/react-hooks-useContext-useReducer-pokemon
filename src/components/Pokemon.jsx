@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import PokemonContext from '../context/PokemonContext';
 
-const Pokemon = ({ pokemon, setSelected, modal, setModal }) => {
+const Pokemon = ({ pokemon }) => {
+  const { setSelected, setModal } = useContext(PokemonContext);
+
   function handleSelect() {
     setSelected(pokemon);
     setModal(true);

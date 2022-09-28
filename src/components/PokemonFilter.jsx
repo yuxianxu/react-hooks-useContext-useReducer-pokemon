@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import PokemonContext from '../context/PokemonContext';
 
-const PokemonFilter = ({ search, setSearch }) => {
+const PokemonFilter = () => {
+  const { setSelected, search, setSearch } = useContext(PokemonContext);
+
   function handleSearch(e) {
+    setSelected(null);
     setSearch(e.target.value);
   }
 
   return (
-    <div className='search'>
+    <div className="search">
       <input
         type="text"
         value={search}

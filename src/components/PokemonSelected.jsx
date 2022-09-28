@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import PokemonContext from '../context/PokemonContext';
 
-const PokemonSelected = ({ selected }) => {
+const PokemonSelected = () => {
+  const { selected } = useContext(PokemonContext);
+
+  if (!selected) return null;
+
   return (
-    <div className='selected'>
+    <div className="selected">
       <h3>{selected.name.english}</h3>
       <div>
         {Object.keys(selected.base).map((baseKey) => (

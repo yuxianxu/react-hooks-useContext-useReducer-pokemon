@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PokemonFilter from './components/PokemonFilter';
 import PokemonList from './components/PokemonList';
+import PokemonContext from './context/PokemonContext';
 
 function App() {
-  const [pokemon, setPokemon] = useState([]);
   const [search, setSearch] = useState('');
   const [selected, setSelected] = useState(null);
   const [modal, setModal] = useState(false);
+  const [pokemon, setPokemon] = useState(null);
 
   const getComments = async () => {
     const response = await fetch('./src/pokemon.json');
@@ -14,27 +15,31 @@ function App() {
     setPokemon(data);
   };
 
-  console.log(search);
-
   useEffect(() => {
     getComments();
   }, []);
 
-  console.log(selected);
+  if (pokemon === null) {
+    return <p>Loading...</p>;
+  }
 
   return (
-    <>
+    <PokemonContext.Provider
+      value={{
+        pokemon,
+        setPokemon,
+        search,
+        setSearch,
+        selected,
+        setSelected,
+        modal,
+        setModal,
+      }}
+    >
       <h2>Pokemon list - React hooks</h2>
-      <PokemonFilter pokemon={pokemon} search={search} setSearch={setSearch} />
-      <PokemonList
-        pokemon={pokemon}
-        search={search}
-        selected={selected}
-        setSelected={setSelected}
-        modal={modal}
-        setModal={setModal}
-      />
-    </>
+      <PokemonFilter />
+      <PokemonList />
+    </PokemonContext.Provider>
   );
 }
 
