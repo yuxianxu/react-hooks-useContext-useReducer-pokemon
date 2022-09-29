@@ -4,7 +4,9 @@ import PokemonSelected from './PokemonSelected';
 import PokemonContext from '../context/PokemonContext';
 
 function PokemonList() {
-  const { pokemon, search, modal } = useContext(PokemonContext);
+  const {
+    state: { pokemon, search, modal },
+  } = useContext(PokemonContext);
 
   return (
     <>
@@ -16,7 +18,7 @@ function PokemonList() {
         )
         .slice(0, 20)
         .map((pokemon) => (
-          <Pokemon key={pokemon.id} pokemon={pokemon} />
+          <Pokemon pokemon={pokemon} key={pokemon.id} />
         ))}
     </>
   );

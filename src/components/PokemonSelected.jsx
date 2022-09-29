@@ -2,7 +2,9 @@ import React, { useContext } from 'react';
 import PokemonContext from '../context/PokemonContext';
 
 const PokemonSelected = () => {
-  const { selected } = useContext(PokemonContext);
+  const {
+    state: { selected },
+  } = useContext(PokemonContext);
 
   if (!selected) return null;
 

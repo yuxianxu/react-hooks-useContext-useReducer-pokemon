@@ -2,11 +2,17 @@ import React, { useContext } from 'react';
 import PokemonContext from '../context/PokemonContext';
 
 const Pokemon = ({ pokemon }) => {
-  const { setSelected, setModal } = useContext(PokemonContext);
+  const { dispatch } = useContext(PokemonContext);
 
   function handleSelect() {
-    setSelected(pokemon);
-    setModal(true);
+    dispatch({
+      type: 'SET_SELECTED',
+      payload: pokemon,
+    });
+    dispatch({
+      type: 'SET_MODAL',
+      payload: true,
+    });
   }
 
   return (

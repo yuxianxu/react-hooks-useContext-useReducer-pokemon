@@ -2,11 +2,21 @@ import React, { useContext } from 'react';
 import PokemonContext from '../context/PokemonContext';
 
 const PokemonFilter = () => {
-  const { setSelected, search, setSearch } = useContext(PokemonContext);
+  const {
+    state: { search },
+    dispatch,
+  } = useContext(PokemonContext);
 
   function handleSearch(e) {
-    setSelected(null);
-    setSearch(e.target.value);
+    dispatch({
+      type: 'SET_SELECTED',
+      payload: null,
+    });
+
+    dispatch({
+      type: 'SET_SEARCH',
+      payload: e.target.value,
+    });
   }
 
   return (
