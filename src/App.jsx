@@ -1,46 +1,45 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect } from 'react';
 import PokemonFilter from './components/PokemonFilter';
 import PokemonList from './components/PokemonList';
-import { createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import { Provider, useSelector, useDispatch } from 'react-redux';
 import logo from './assets/redux.svg';
 
-const pokemonReducer = (
-  state = {
-    pokemon: [],
-    search: '',
-    selected: null,
-    modal: false,
-  },
-  { type, payload }
-) => {
-  switch (type) {
+const initialState = {
+  pokemon: [],
+  search: '',
+  selected: null,
+  modal: false,
+};
+
+const pokemonReducer = (state = initialState, action) => {
+  switch (action.type) {
     case 'SET_POKEMON':
       return {
         ...state,
-        pokemon: payload,
+        pokemon: action.payload,
       };
     case 'SET_SEARCH':
       return {
         ...state,
-        search: payload,
+        search: action.payload,
       };
     case 'SET_SELECTED':
       return {
         ...state,
-        selected: payload,
+        selected: action.payload,
       };
     case 'SET_MODAL':
       return {
         ...state,
-        modal: payload,
+        modal: action.payload,
       };
     default:
       return state;
   }
 };
 
-const store = createStore(pokemonReducer);
+const store = configureStore({ reducer: pokemonReducer });
 
 function App() {
   const dispatch = useDispatch();
@@ -62,9 +61,9 @@ function App() {
 
   return (
     <>
-      <h2>Pokemon list - React - Redux</h2>
+      <h2>Pokemon list - React - Redux toolkit</h2>
       <img
-        className='logo'
+        className="logo"
         src={logo}
         alt="Redux logo"
         width={50}
