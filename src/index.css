@@ -25,6 +25,11 @@ body {
   min-height: 100vh;
 }
 
+.logo {
+  position: absolute;
+  right: 8%;
+  top: 10px;
+}
 
 h1 {
   font-size: 3.2em;

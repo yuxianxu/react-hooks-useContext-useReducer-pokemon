@@ -1,11 +1,9 @@
-import React, { useContext } from 'react';
-import PokemonContext from '../context/PokemonContext';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const PokemonFilter = () => {
-  const {
-    state: { search },
-    dispatch,
-  } = useContext(PokemonContext);
+  const dispatch = useDispatch();
+  const search = useSelector((state) => state.search);
 
   function handleSearch(e) {
     dispatch({

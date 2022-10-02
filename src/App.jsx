@@ -1,9 +1,19 @@
 import React, { useEffect, useReducer } from 'react';
 import PokemonFilter from './components/PokemonFilter';
 import PokemonList from './components/PokemonList';
-import PokemonContext from './context/PokemonContext';
+import { createStore } from 'redux';
+import { Provider, useSelector, useDispatch } from 'react-redux';
+import logo from './assets/redux.svg';
 
-const pokemonReducer = (state, { type, payload }) => {
+const pokemonReducer = (
+  state = {
+    pokemon: [],
+    search: '',
+    selected: null,
+    modal: false,
+  },
+  { type, payload }
+) => {
   switch (type) {
     case 'SET_POKEMON':
       return {
@@ -26,17 +36,15 @@ const pokemonReducer = (state, { type, payload }) => {
         modal: payload,
       };
     default:
-      throw new Error('No action type found');
+      return state;
   }
 };
 
+const store = createStore(pokemonReducer);
+
 function App() {
-  const [state, dispatch] = useReducer(pokemonReducer, {
-    pokemon: [],
-    search: '',
-    selected: null,
-    modal: false,
-  });
+  const dispatch = useDispatch();
+  const pokemon = useSelector((state) => state.pokemon);
 
   const getComments = async () => {
     const response = await fetch('./src/pokemon.json');
@@ -48,22 +56,28 @@ function App() {
     getComments();
   }, []);
 
-  if (state.pokemon === null) {
+  if (pokemon === null) {
     return <p>Loading...</p>;
   }
 
   return (
-    <PokemonContext.Provider
-      value={{
-        state,
-        dispatch,
-      }}
-    >
-      <h2>Pokemon list - React hooks</h2>
+    <>
+      <h2>Pokemon list - React - Redux</h2>
+      <img
+        className='logo'
+        src={logo}
+        alt="Redux logo"
+        width={50}
+        height={50}
+      />
       <PokemonFilter />
       <PokemonList />
-    </PokemonContext.Provider>
+    </>
   );
 }
 
-export default App;
+export default () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);

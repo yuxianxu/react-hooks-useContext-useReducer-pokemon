@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
-import PokemonContext from '../context/PokemonContext';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 const PokemonSelected = () => {
-  const {
-    state: { selected },
-  } = useContext(PokemonContext);
+
+  const selected = useSelector((state) => state.selected);
 
   if (!selected) return null;
 

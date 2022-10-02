@@ -1,14 +1,15 @@
-import React, { useContext } from 'react';
-import PokemonContext from '../context/PokemonContext';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 
 const Pokemon = ({ pokemon }) => {
-  const { dispatch } = useContext(PokemonContext);
+  const dispatch = useDispatch();
 
   function handleSelect() {
     dispatch({
       type: 'SET_SELECTED',
       payload: pokemon,
     });
+    
     dispatch({
       type: 'SET_MODAL',
       payload: true,
