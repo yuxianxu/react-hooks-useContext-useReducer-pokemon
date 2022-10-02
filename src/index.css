@@ -119,3 +119,8 @@ h2 {
 .pokemonItem:hover {
   background-color: rgb(189, 237, 201);
 }
+
+.empty, .filterResults {
+  width: 100%;
+  text-align: center;
+}
